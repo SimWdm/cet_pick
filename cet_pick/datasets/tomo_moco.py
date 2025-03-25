@@ -119,9 +119,10 @@ class TOMOMoco(Dataset):
 					gt_det.append(ann[:3])
 					all_labels.append(ann)
 				gt_det = np.array(gt_det, dtype=np.float32) if len(gt_det) > 0 else np.zeros((1,3), dtype=np.float32)
-				if self.split == 'train':
-					if not self.opt.pn:
-						hm[np.where(hm == 0)] = -1
+    
+	#			if self.split == 'train':
+				if not self.opt.pn:
+					hm[np.where(hm == 0)] = -1
 
 				tomos.append(tomo)
 
