@@ -57,7 +57,7 @@ class TomoCRSemiLoss(torch.nn.Module):
         if phase == 'train':
             hm_loss += self.crit(output['hm'], batch['hm']) / opt.num_stacks 
         else:
-            hm_loss += self.crit2(output['hm'], batch['hm']) / opt.num_stacks
+            hm_loss += self.crit(output['hm'], batch['hm']) / opt.num_stacks
         # hm_loss += self.crit(output_cr['hm'], batch['hm_c']) / opt.num_stacks
         if opt.contrastive and phase == "train":
             output_fm = output['proj']
@@ -109,6 +109,7 @@ class TomoCRSemiLoss(torch.nn.Module):
 
 
         loss_stats = {'loss': loss,'hm_loss': hm_loss, 'cr_loss': cr_loss, 'consis_loss': consis_loss}
+        
         return loss, loss_stats
 
 class TomoCRSemiTrainer(BaseTrainer):
