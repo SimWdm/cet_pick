@@ -5,6 +5,7 @@ from __future__ import print_function
 
 
 import os
+import glob
 
 import torch
 import torch.utils.data
@@ -113,7 +114,12 @@ def main(opt):
         logger.write('{} {:8f} | '.format(k, v))
       if log_dict_val[opt.metric] < best:
         best = log_dict_val[opt.metric]
-        save_model(os.path.join(opt.save_dir, 'model_best_contrastive.pth'), 
+        existing_models = glob.glob(os.path.join(opt.save_dir, 'model_best_val_*.pth'))
+        if len(existing_models) == 1:
+          os.remove(existing_models[0])
+        elif len(existing_models) > 1:
+          raise ValueError(f'There are multiple best val models: {existing_models}')
+        save_model(os.path.join(opt.save_dir, f'model_best_val_{opt.metric}={best}.pth'), 
                    epoch, model)
     else:
       save_model(os.path.join(opt.save_dir, 'model_last_contrastive.pth'), 
