@@ -287,25 +287,30 @@ def _pu_neg_loss(pred, gt, tau, beta, gamma):
     else: 
         pos_loss_tot = -(pos_loss.sum())/ num_pos
     # pos_loss_tot = -(pos_loss + soft_pos_loss).sum()
-    pos_risk = (pos_loss_tot) * tau 
-    neg_pos_loss = torch.log(1-pred) * torch.pow(pred, 2) * true_pos_inds
-    if num_soft > 0:
-        neg_soft_pos_loss = torch.log(pred) * torch.pow(1-pred, 2) * soft_pow_neg_weights * soft_pos_inds
-    # neg_pos_loss_tot = -(neg_pos_loss + neg_soft_pos_loss).sum()
-        neg_pos_loss_tot = -(neg_pos_loss.sum()) / num_pos - (neg_soft_pos_loss.sum())/num_soft
-    else: 
-        neg_pos_loss_tot = -(neg_pos_loss.sum()) / num_pos
-    neg_pos_risk = neg_pos_loss_tot 
-    unlabeled_neg_loss = torch.pow(pred, 2) * torch.log(1 - pred) * unlabeled_inds
-    unlabeled_loss = -(unlabeled_neg_loss).sum()
-    unlabeled_risk = unlabeled_loss / num_unlabeld
-
-    neg_risk_total = -tau * neg_pos_risk + unlabeled_risk
-
-    if neg_risk_total < -beta:
-        return pos_risk
+    
+    if tau is None:
+        return pos_loss_tot
+    
     else:
-        return pos_risk + neg_risk_total
+        pos_risk = (pos_loss_tot) * tau 
+        neg_pos_loss = torch.log(1-pred) * torch.pow(pred, 2) * true_pos_inds
+        if num_soft > 0:
+            neg_soft_pos_loss = torch.log(pred) * torch.pow(1-pred, 2) * soft_pow_neg_weights * soft_pos_inds
+        # neg_pos_loss_tot = -(neg_pos_loss + neg_soft_pos_loss).sum()
+            neg_pos_loss_tot = -(neg_pos_loss.sum()) / num_pos - (neg_soft_pos_loss.sum())/num_soft
+        else: 
+            neg_pos_loss_tot = -(neg_pos_loss.sum()) / num_pos
+        neg_pos_risk = neg_pos_loss_tot 
+        unlabeled_neg_loss = torch.pow(pred, 2) * torch.log(1 - pred) * unlabeled_inds
+        unlabeled_loss = -(unlabeled_neg_loss).sum()
+        unlabeled_risk = unlabeled_loss / num_unlabeld
+
+        neg_risk_total = -tau * neg_pos_risk + unlabeled_risk
+
+        if neg_risk_total < -beta:
+            return pos_risk
+        else:
+            return pos_risk + neg_risk_total
 
 class PULoss(nn.Module):
 

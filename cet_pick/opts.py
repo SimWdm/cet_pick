@@ -9,6 +9,11 @@ import sys
   
 def list_of_floats(arg):
   return list(map(float, arg.split(',')))
+
+def float_or_none(value):
+    if value.lower() == 'none':
+        return None
+    return float(value)
   
 class opts(object):
   def __init__(self):
@@ -135,7 +140,7 @@ class opts(object):
     self.parser.add_argument('--cr_weight', type=float, default=0.1, help='weight for contrastive loss')
     self.parser.add_argument('--thresh', type=float, default=0.5, help='threshold for pos and neg contrastive')
     self.parser.add_argument('--temp', type=float, default=0.07, help='temperature for info nce loss')
-    self.parser.add_argument('--tau', type=float, default=0.1, help='class prior probability')
+    self.parser.add_argument('--tau', type=float_or_none, default=0.1, help='class prior probability')
     self.parser.add_argument('--nclusters', type=int, default=3, help='number of clusters for SCAN')
     self.parser.add_argument('--nheads', type=int, default=1, help='number of heads for SCAN model')
     self.parser.add_argument('--names', type=str, help='list of names of tomograms')
