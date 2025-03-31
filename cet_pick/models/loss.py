@@ -288,8 +288,12 @@ def _pu_neg_loss(pred, gt, tau, beta, gamma):
         pos_loss_tot = -(pos_loss.sum())/ num_pos
     # pos_loss_tot = -(pos_loss + soft_pos_loss).sum()
     
+    unlabeled_neg_loss = torch.pow(pred, 2) * torch.log(1 - pred) * unlabeled_inds
+    unlabeled_loss = -(unlabeled_neg_loss).sum()
+    unlabeled_risk = unlabeled_loss / num_unlabeld
+    
     if tau is None:
-        return pos_loss_tot
+        return (-pos_loss - soft_pos_loss - unlabeled_neg_loss).mean()
     
     else:
         pos_risk = (pos_loss_tot) * tau 
@@ -301,9 +305,6 @@ def _pu_neg_loss(pred, gt, tau, beta, gamma):
         else: 
             neg_pos_loss_tot = -(neg_pos_loss.sum()) / num_pos
         neg_pos_risk = neg_pos_loss_tot 
-        unlabeled_neg_loss = torch.pow(pred, 2) * torch.log(1 - pred) * unlabeled_inds
-        unlabeled_loss = -(unlabeled_neg_loss).sum()
-        unlabeled_risk = unlabeled_loss / num_unlabeld
 
         neg_risk_total = -tau * neg_pos_risk + unlabeled_risk
 
