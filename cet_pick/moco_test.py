@@ -11,8 +11,8 @@ from progress.bar import Bar
 import torch
 from opts import opts
 from logger import Logger
-from utils.utils import AverageMeter
-# from utils.loader import load_subtomo,load_subtomo_v2
+from cet_pick.utils.utils import AverageMeter
+# from cet_pick.utils.loader import load_subtomo,load_subtomo_v2
 from cet_pick.datasets.dataset_factory import dataset_factory
 from cet_pick.detectors.detector_factory import detector_factory
 import torchio as tio 

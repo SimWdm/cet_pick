@@ -10,7 +10,7 @@ import cv2
 from PIL import Image
 import os
 import random
-from utils.image import gaussian_radius, draw_umich_gaussian_3d, draw_msra_gaussian_3d, flip_ud, flip_lr
+from cet_pick.utils.image import gaussian_radius, draw_umich_gaussian_3d, draw_msra_gaussian_3d, flip_ud, flip_lr
 import math
 
 class ParticleMocoClassDataset(data.Dataset):

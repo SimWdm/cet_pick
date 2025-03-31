@@ -12,7 +12,7 @@ from progress.bar import Bar
 import torch
 from opts import opts
 from logger import Logger
-from utils.utils import AverageMeter
+from cet_pick.utils.utils import AverageMeter
 from cet_pick.datasets.dataset_factory import dataset_factory
 from cet_pick.detectors.detector_factory import detector_factory
 from cet_pick.utils.loader import load_rec, preprocess

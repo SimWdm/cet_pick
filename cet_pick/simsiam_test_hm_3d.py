@@ -3,20 +3,22 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import sys
+
 import json
 import cv2
 import numpy as np
 import time
 from progress.bar import Bar
 import torch
-from opts import opts
-from logger import Logger
-from utils.utils import AverageMeter
-# from utils.loader import load_subtomo,load_subtomo_v2
-from utils.loader import load_rec
+from cet_pick.opts import opts
+from cet_pick.logger import Logger
+from cet_pick.utils.utils import AverageMeter
+# from cet_pick.utils.loader import load_subtomo,load_subtomo_v2
+from cet_pick.utils.loader import load_rec
 from cet_pick.datasets.dataset_factory import dataset_factory
 from cet_pick.detectors.detector_factory import detector_factory
-from utils.image import gaussian_radius, draw_umich_gaussian_3d, draw_msra_gaussian_3d, flip_ud, flip_lr, CornerErasing, CenterOut
+from cet_pick.utils.image import gaussian_radius, draw_umich_gaussian_3d, draw_msra_gaussian_3d, flip_ud, flip_lr, CornerErasing, CenterOut
 import torchio as tio 
 from cet_pick.utils.loader import load_tomos_from_list, cutup
 from cet_pick.models.model import create_model, load_model 
@@ -162,6 +164,7 @@ def test(opt):
     all_names = []
     all_orig_subvols = []
     for iter_id, batch in enumerate(data_loader):
+        import pdb; pdb.set_trace()
         input_tomo = batch['input'].to(opt.device)
         coord = batch['coord']
         name = batch['name']

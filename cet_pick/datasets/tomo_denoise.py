@@ -15,7 +15,7 @@ from PIL import Image
 import torch.utils.data as data
 from cet_pick.utils.loader import load_tomos_from_list_nopre
 from cet_pick.utils.coordinates import match_coordinates_to_images
-from utils.image import gaussian_radius, draw_umich_gaussian_3d, draw_msra_gaussian_3d, flip_ud, flip_lr,RandomCropNoBorder
+from cet_pick.utils.image import gaussian_radius, draw_umich_gaussian_3d, draw_msra_gaussian_3d, flip_ud, flip_lr,RandomCropNoBorder
 
 class TOMODenoise(Dataset):
 	num_classes = 1 

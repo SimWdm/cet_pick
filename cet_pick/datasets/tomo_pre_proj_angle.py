@@ -15,7 +15,7 @@ import torch
 import torch.utils.data as data
 from cet_pick.utils.loader import load_tomos_from_list, cutup, load_tomos_and_angles_from_list
 from cet_pick.utils.coordinates import match_coordinates_to_images
-from utils.image import gaussian_radius, draw_umich_gaussian_3d, draw_msra_gaussian_3d, flip_ud, flip_lr, CornerErasing, CenterOut
+from cet_pick.utils.image import gaussian_radius, draw_umich_gaussian_3d, draw_msra_gaussian_3d, flip_ud, flip_lr, CornerErasing, CenterOut
 import torchio as tio 
 from multiprocessing import Pool
 
