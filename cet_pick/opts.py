@@ -28,6 +28,7 @@ class opts(object):
                              help='cryoET dataset has default tomo'
                                   'for semi-supervised/few shot particle detection during training, please use semi, '
                                   'for semi-supervised/few shot particle detection during evaluation, please use semi_test, ')
+    self.parser.add_argument('--root_dir', default='/home/simon')
     self.parser.add_argument('--exp_id', default='default', help='experiment id for this run to save all outputs')
     self.parser.add_argument('--test', action='store_true', help='whether to perform testing after training')
     self.parser.add_argument('--debug', type=int, default=4,
@@ -255,7 +256,7 @@ class opts(object):
     print('Training chunk_sizes:', opt.chunk_sizes)
     # need opt root dir
     # opt.root_dir = os.path.join(os.path.dirname(__file__), '..', '..')
-    opt.root_dir = os.getcwd()
+    #opt.root_dir = os.getcwd()
     opt.data_dir = os.path.join(opt.root_dir, 'data')
     opt.exp_dir = os.path.join(opt.root_dir, 'exp', opt.task)
     opt.save_dir = os.path.join(opt.exp_dir, opt.exp_id)
